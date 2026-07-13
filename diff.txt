@@ -1,270 +1,252 @@
-diff --git a/frontend-vue/src/components/LoadingSpinner.vue b/frontend-vue/src/components/LoadingSpinner.vue
-new file mode 100644
-index 0000000..59680a6
---- /dev/null
-+++ b/frontend-vue/src/components/LoadingSpinner.vue
-@@ -0,0 +1,24 @@
-+<template>
-+  <div class="spinner"></div>
-+</template>
-+
-+<style scoped>
-+.spinner {
-+  width: 20px;
-+  height: 20px;
-+  border: 5px solid #f3f3f3;
-+  border-top: 5px solid #3498db;
-+  border-radius: 50%;
-+  animation: spin 1s linear infinite;
-+  margin: 30% auto;
-+}
-+
-+@keyframes spin {
-+  0% {
-+    transform: rotate(0deg);
-+  }
-+  100% {
-+    transform: rotate(360deg);
-+  }
-+}
-+</style>
-diff --git a/frontend-vue/src/views/DetailView.vue b/frontend-vue/src/views/DetailView.vue
-index 4bc1072..6aa493e 100644
---- a/frontend-vue/src/views/DetailView.vue
-+++ b/frontend-vue/src/views/DetailView.vue
-@@ -2,6 +2,7 @@
- import { get } from '@/plugins/api'
- import { onMounted, ref } from 'vue'
- import { useRoute } from 'vue-router'
-+import LoadingSpinner from '@/components/LoadingSpinner.vue'
+diff --git a/frontend-vue/src/components/Login.vue b/frontend-vue/src/components/Login.vue
+index 2cc77c0..efd748e 100644
+--- a/frontend-vue/src/components/Login.vue
++++ b/frontend-vue/src/components/Login.vue
+@@ -4,6 +4,7 @@ import { useAuthStore } from '@/stores/authStore'
+ import { useRouter } from 'vue-router'
+ import Button from './ui/Button.vue'
+ import HeartIcon from './ui/HeartIcon.vue'
++import LoadingSpinner from './LoadingSpinner.vue'
  
- const route = useRoute()
- const product = ref(null)
-@@ -9,13 +10,13 @@ const error = ref('')
+ const authStore = useAuthStore()
+ const router = useRouter()
+@@ -11,7 +12,9 @@ const router = useRouter()
+ const username = ref('')
+ const password = ref('')
  const loading = ref(false)
++// const loading = ref(false)
+ const error = ref('')
++const successMessage = ref('')
  
- onMounted(async () => {
--    loading.value = true
-+  loading.value = true
-   const productId = route.params.id
--  if (!productId){
-+  if (!productId) {
-     error.value = 'Product ID not found'
+ const handleLogin = async () => {
+   loading.value = true
+@@ -20,24 +23,36 @@ const handleLogin = async () => {
+   const result = await authStore.login(username.value, password.value)
+ 
+   if (result.success) {
+-    router.push('/')
++    successMessage.value = 'Redirecting...'
++    setTimeout(() => {
++      router.push('/')
++    }, 2000)
+   } else {
+     error.value = 'Invalid username or password'
    }
-   try {
--   product.value = await get(`/api/v1/scarpe/${productId}`)
-+    product.value = await get(`/api/v1/scarpe/${productId}`)
-     loading.value = false
-     console.log({ product: product.value })
-   } catch (err) {
-@@ -25,10 +26,10 @@ onMounted(async () => {
+   loading.value = false
+ }
+-
  </script>
++e
  
  <template>
-+  <LoadingSpinner v-if="loading"/>
-   <div class="product-detail-container">
-     <!-- Loading State -->
-     <div v-if="loading" class="loading-state">
--      <p>Loading product...</p>
-     </div>
+-  <form>
+-    <input type="text" placeholder="Username" v-model="username" />
+-    <input type="password" placeholder="Password" v-model="password" />
+-    <Button type="submit" @click.prevent="handleLogin"> <span>Login</span><HeartIcon /> </Button>
+-  </form>
++    <LoadingSpinner v-if="loading" id="spinner"/>
++    <form>
++      <input type="text" placeholder="Username" v-model="username" />
++      <input type="password" placeholder="Password" v-model="password" />
++      <Button type="submit" @click.prevent="handleLogin"> <span>Login</span><HeartIcon /> </Button>
++      <p v-if="error">{{ error }}</p>
++      <p v-else>{{ successMessage }}</p>
++    </form>
+ </template>
  
-     <!-- Error State -->
-@@ -41,41 +42,34 @@ onMounted(async () => {
-     <div v-else-if="product" class="product-detail">
-       <div class="product-image">
-         <img :src="product.immagine_url" :alt="product.nome" />
--        <span v-if="product.sconto > 0" class="badge">
--          Sconto {{ product.sconto }}%
--        </span>
-+        <span v-if="product.sconto > 0" class="badge"> Sconto {{ product.sconto }}% </span>
-       </div>
- 
-       <div class="product-info">
-         <span class="category">{{ product.categoria }}</span>
-         <h1>{{ product.nome }}</h1>
-         <p class="description">{{ product.descrizione }}</p>
--        
-+
-         <div class="price-container">
--          <span v-if="product.sconto > 0" class="old-price">
--            €{{ product.prezzo }}
--          </span>
-+          <span v-if="product.sconto > 0" class="old-price"> €{{ product.prezzo }} </span>
-           <span class="new-price">€{{ product.prezzo_scontato || product.prezzo }}</span>
-         </div>
- 
-         <div class="product-meta">
-           <p><strong>Materiale:</strong> {{ product.materiale }}</p>
--          <p><strong>Disponibilità:</strong> 
-+          <p>
-+            <strong>Disponibilità:</strong>
-             <span :class="product.disponibilita ? 'in-stock' : 'out-of-stock'">
-               {{ product.disponibilita ? 'In stock' : 'Out of stock' }}
-             </span>
-           </p>
-           <p v-if="product.taglie_disponibili && product.taglie_disponibili.length">
--            <strong>Taglie:</strong> 
-+            <strong>Taglie:</strong>
-             {{ product.taglie_disponibili.join(', ') }}
-           </p>
-         </div>
- 
--        <button 
--          class="add-to-cart-btn" 
--          @click="addToCart"
--          :disabled="!product.disponibilita"
--        >
-+        <button class="add-to-cart-btn" @click="addToCart" :disabled="!product.disponibilita">
-           {{ product.disponibilita ? 'Aggiungi al Carrello' : 'Non Disponibile' }}
-         </button>
-       </div>
-@@ -120,7 +114,7 @@ onMounted(async () => {
-   background: white;
-   padding: 30px;
-   border-radius: 8px;
--  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+ <style scoped>
++#spinner {
++  position: absolute;
++}
++form {
++  max-width: 400px;
++}
+ input {
+   padding: 5px;
  }
+diff --git a/frontend-vue/src/router/index.js b/frontend-vue/src/router/index.js
+index 1d61f9c..3444aaa 100644
+--- a/frontend-vue/src/router/index.js
++++ b/frontend-vue/src/router/index.js
+@@ -5,85 +5,82 @@ import ProductsView from '@/views/ProductsView.vue'
+ import RegisterView from '@/views/RegisterView.vue'
+ import UsersView from '@/views/UsersView.vue'
+ import { createRouter, createWebHistory } from 'vue-router'
+-// import { jwtDecode } from 'jwt-decode';
++import { useAuthStore } from '@/stores/authStore'
++import { jwtDecode } from 'jwt-decode'
  
- .product-image {
-@@ -231,4 +225,3 @@ h1 {
-   }
- }
- </style>
+ const router = createRouter({
+   history: createWebHistory(import.meta.env.BASE_URL),
+   routes: [
+     {
+-      path: '/',                // L'URL del browser
+-      name: 'home',             // Un nome univoco per la rotta (opzionale ma consigliato)
+-      component: HomeView       // Il componente associato
++      path: '/', // L'URL del browser
++      name: 'home', // Un nome univoco per la rotta (opzionale ma consigliato)
++      component: HomeView,
++      meta: { requiresAuth: true }, // Il componente associato
+     },
+     {
+-      path: '/detail/:id',                // L'URL del browser
+-      name: 'detail',             // Un nome univoco per la rotta (opzionale ma consigliato)
+-      component: DetailView       // Il componente associato
++      path: '/detail/:id', // L'URL del browser
++      name: 'detail', // Un nome univoco per la rotta (opzionale ma consigliato)
++      component: DetailView, // Il componente associato
+     },
+     {
+-      path: '/products',            // L'URL del browser
+-      name: 'products',             // Un nome univoco per la rotta (opzionale ma consigliato)
+-      component: ProductsView       // Il componente associato
++      path: '/products', // L'URL del browser
++      name: 'products', // Un nome univoco per la rotta (opzionale ma consigliato)
++      component: ProductsView, // Il componente associato
+     },
+     {
+-      path:'/users',
+-      name:'users',
++      path: '/users',
++      name: 'users',
+       component: UsersView,
+-      meta: { richiedeAuth: true }
++      meta: { requiresAuth: true },
+     },
+     {
+-      path:'/login',
+-      name:'login',
+-      component: LoginView
++      path: '/login',
++      name: 'login',
++      component: LoginView,
+     },
+     {
+-      path:'/register',
+-      name:'register',
+-      component: RegisterView
+-    }
++      path: '/register',
++      name: 'register',
++      component: RegisterView,
++    },
+   ],
+ })
+ 
+ // --- IL CONTROLLO ACCESSI (Navigation Guard) ---
+ router.beforeEach((to, from) => {
+-  const token = localStorage.getItem('token');
++  const authStore = useAuthStore()
+ 
+-  // Caso 1: La rotta richiede l'autenticazione?
+-  if (to.meta.richiedeAuth) {
+-    
+-    // Se il token non esiste, rimanda al login
+-    if (!token) {
+-      return '/login';
++  if (to.meta.requiresAuth) {
++    // First check if there's a token
++    if (!authStore.isAuthenticated) {
++      return '/login'
+     }
+ 
++    // Optional: Validate token expiration
++    const token = localStorage.getItem('access_token')
++    // const token = localStorage.getItem('access_token')
+     try {
+-      // Decodifichiamo il token per leggere la scadenza e il ruolo
+-      //const decoded = jwtDecode(token);
 -
+-      // // SOTTO-CONTROLLO opzionale: Il token è scaduto? (exp è in secondi, Date.now() in millisecondi)
+-      // if (decoded.exp && decoded.exp * 1000 < Date.now()) {
+-      //   localStorage.removeItem('token'); // Cancella il token scaduto
+-      //   return next('/login');
+-      // }
+-
+-      // // Caso 2: La rotta richiede un ruolo specifico?
+-      // if (to.meta.ruoliConsentiti) {
+-      //   // Se il ruolo dell'utente non è tra quelli consentiti, blocca l'accesso
+-      //   if (!to.meta.ruoliConsentiti.includes(decoded.role)) {
+-      //     alert("Non hai i permessi per accedere a questa pagina!");
+-      //     return next('/dashboard'); // Rimanda a una pagina sicura
+-      //   }
+-      // }
+-
++      const decoded = jwtDecode(token)
++      if (decoded.exp && decoded.exp * 1000 < Date.now()) {
++        // Token expired
++        authStore.logout()
++        return '/login'
++      }
+     } catch (error) {
+-      // Se il token è corrotto o non decodificabile, pulisci e rimanda al login
+-      localStorage.removeItem('token');
+-      return '/login';
++      // Invalid token
++      authStore.logout()
++      return '/login'
+     }
+   }
+ 
+-  // Se i controlli passano (o la rotta è pubblica), procedi normalmente
+-  return;
+-});
++  // Redirect authenticated users from auth pages
++  if (to.path === '/login' || to.path === '/register') {
++    if (authStore.isAuthenticated) {
++      return '/'
++    }
++  }
++
++  return true
++})
+ 
+ export default router
+diff --git a/frontend-vue/src/stores/authStore.js b/frontend-vue/src/stores/authStore.js
+index 6353d8a..045b59c 100644
+--- a/frontend-vue/src/stores/authStore.js
++++ b/frontend-vue/src/stores/authStore.js
+@@ -5,7 +5,7 @@ import { jwtDecode } from 'jwt-decode'
+ 
+ export const useAuthStore = defineStore('auth', () => {
+   const token = ref(localStorage.getItem('access_token') || null)
+-  const refreshToken = ref(localStorage.getItem('refreshToken') || null)
++  const refreshToken = ref(localStorage.getItem('refresh_token') || null)
+   const user = ref(null)
+ 
+   const isAuthenticated = computed(() => !!token.value)
+@@ -33,7 +33,7 @@ export const useAuthStore = defineStore('auth', () => {
+   function setAuth(data) {
+     // Fix: Use consistent key names
+     token.value = data.access
+-    refreshToken.value = data.refreshToken // Make sure this matches your API response
++    refreshToken.value = data.refresh // Make sure this matches your API response
+     // user.value = data.user || null
+ 
+     // Decode token to get user info
+@@ -62,6 +62,12 @@ export const useAuthStore = defineStore('auth', () => {
+   async function login(username, password) {
+     try {
+       const data = await post('/api/v1/login/', { username, password })
++       console.log('🔍 Login API response structure:', data)
++       console.log('Keys:', Object.keys(data))
++       console.log('access_token?', data.access_token)
++       console.log('access?', data.access)
++       console.log('refresh_token?', data.refresh_token)
++       console.log('refresh?', data.refresh)
+       setAuth(data)
+       return { success: true, data }
+     } catch (error) {
 diff --git a/frontend-vue/src/views/HomeView.vue b/frontend-vue/src/views/HomeView.vue
-index f7576f2..af2547a 100644
+index af2547a..0a9ec16 100644
 --- a/frontend-vue/src/views/HomeView.vue
 +++ b/frontend-vue/src/views/HomeView.vue
-@@ -4,6 +4,8 @@ import ProductCard from '@/components/ProductCard.vue'
- // import getProducts from '@/services/productService'
- import { useCartStore } from '@/stores/cartStore'
- import { get } from '@/plugins/api'
-+import LoadingSpinner from '@/components/LoadingSpinner.vue'
-+
+@@ -82,7 +82,7 @@ onMounted(async () => {
+       </template>
  
- const cartStore = useCartStore()
- 
-@@ -43,15 +45,17 @@ console.log({ cart: cartStore.totalItems })
- 
- const products = ref([])
- const error = ref(null)
--const loading = ref(true)
-+const loading = ref(false)
- 
- onMounted(async () => {
-   try {
-     // products.value = await getProducts()
-+    loading.value = true
-     const token = localStorage.getItem('access_token')
-     const data = await get('/api/v1/scarpe', {
-       Authorization: `Bearer ${token}`,
-     })
-+    loading.value = false
-     console.log({ dataresults: data.results })
-     products.value = data.results
-   } catch (err) {
-@@ -64,7 +68,9 @@ onMounted(async () => {
- </script>
- 
- <template>
-+  <LoadingSpinner v-if="loading"/>
-   <main class="grid">
-+    
-     <ProductCard v-for="product in products" :key="product.id">
-       <template #image>
-         <div class="badge-wrapper">
-@@ -119,6 +125,7 @@ onMounted(async () => {
- }
- .add-btn {
-   padding: 10px;
-+  cursor: pointer;
- }
- 
- .old-price {
-diff --git a/frontend-vue/src/views/ProductsView.vue b/frontend-vue/src/views/ProductsView.vue
-index 6f9b6d0..6cd8be4 100644
---- a/frontend-vue/src/views/ProductsView.vue
-+++ b/frontend-vue/src/views/ProductsView.vue
-@@ -3,9 +3,11 @@ import Grid from '@/components/Grid.vue'
- import ProductList from '@/components/ProductList.vue'
- import { onMounted, ref } from 'vue'
- import { get } from '@/plugins/api'
-+import LoadingSpinner from '@/components/LoadingSpinner.vue'
- 
- const libri = ref([])
- const autori = ref([])
-+const loading = ref(false)
- 
- const gridLibriColumns = ['titolo', 'anno', 'genere', 'autore.nome']
- const radioSelection = ['titolo', 'anno', 'genere', 'autore.nome', 'all']
-@@ -14,50 +16,25 @@ const searchQuery = ref('')
- const selectedField = ref('all')
- console.log({ selectedField: selectedField.value })
- onMounted(async () => {
--  // fetch('http://localhost:8000/api/v1/libri/')
--  //   .then((response) => {
--  //     // Controllo manuale dello stato HTTP
--  //     if (!response.ok) {
--  //       throw new Error(`Errore HTTP: ${response.status}`)
--  //     }
--     const data = await get ('/api/v1/libri/')
--      // Converte la risposta in JSON (ritorna una nuova Promise)
--      // return response.json()
--      console.log('hello world')
--      console.log({libri: data})
--      libri.value = data.results
--    // })
--    // .then((data) => {
--    //   // Aggiorna lo stato reattivo con i dati ricevuti
--    //   console.log({ dataResults: data.results })
--    //   console.log({ libriKeys: Object.keys(data.results[0]) })
--    //   libri.value = data.results
--    // })
-+  loading.value = true
-+  const data = await get('/api/v1/libri/')
- 
--  console.log(libri.value)
-+  console.log({ libri: data })
- 
--  // fetch('http://localhost:8000/api/v1/autori')
--  //   .then((response) => {
--  //     // Controllo manuale dello stato HTTP
--  //     if (!response.ok) {
--  //       throw new Error(`Errore HTTP: ${response.status}`)
--  //     }
--  //     // Converte la risposta in JSON (ritorna una nuova Promise)
--  //     return response.json()
--  //   })
--  //   .then((data) => {
--  //     // Aggiorna lo stato reattivo con i dati ricevuti
--  //     autori.value = data.results
--  //   })
-+  loading.value = false
-+  libri.value = data.results
-+ 
-+  console.log(libri.value)
- 
-   const autori = await get('/api/v1/autori/')
--  console.log({autori: autori})
-+  console.log({ autori: autori })
-   autori.value = autori.results
-   // console.log(autori.value);
- })
- </script>
- 
- <template>
-+  
-   <main class="main">
-     <form id="search">
-       Cerca <input id="search-input" name="query" v-model="searchQuery" />
-@@ -68,7 +45,9 @@ onMounted(async () => {
-     </form>
- 
-     <ProductList></ProductList>
-+    <LoadingSpinner v-if="loading"/>
-     <Grid
-+    
-       style="width: 45%"
-       :data="libri"
-       :columns="gridLibriColumns"
+       <template #content>
+-        <router-link to="/detail" id="r-link-content">
++        <router-link :to="`/detail/${product.id}`" id="r-link-content">
+           <span class="category">{{ product.categoria }}</span>
+           <h3 class="custom-title">{{ product.nome }}</h3>
+           <p class="custom-desc">
