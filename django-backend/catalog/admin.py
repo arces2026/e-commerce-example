@@ -11,7 +11,7 @@ class AutoreAdmin(admin.ModelAdmin):
 
 @admin.register(Libro)
 class LibroAdmin(admin.ModelAdmin):
-    list_display = ["titolo", "anno", "autore", "genere"]
+    list_display = ["titolo", "anno", "autore", "genere", "disponibile"]
     list_filter = ["genere"]
 
 

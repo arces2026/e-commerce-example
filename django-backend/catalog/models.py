@@ -19,7 +19,7 @@ class Libro(models.Model):
     autore = models.ForeignKey(Autore, on_delete=models.CASCADE)
     anno = models.IntegerField()
     genere = models.CharField(max_length=100)
-    
+    disponibile = models.BooleanField(default=True)
 
     def __str__(self):
         return self.titolo
