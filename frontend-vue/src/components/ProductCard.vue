@@ -62,7 +62,7 @@ defineProps({
   border: 1px solid #e0e0e0;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 3px 3px 12px black;
   background-color: #fff;
   display: flex;
   flex-direction: column;

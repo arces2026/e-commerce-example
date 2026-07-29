@@ -4,6 +4,7 @@ import LoginView from '@/views/LoginView.vue'
 import ProductsView from '@/views/ProductsView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import UsersView from '@/views/UsersView.vue'
+import CartView from '@/views/CartView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 import { jwtDecode } from 'jwt-decode'
@@ -42,6 +43,11 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: RegisterView,
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: CartView,
     },
   ],
 })

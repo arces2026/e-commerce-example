@@ -74,7 +74,7 @@ onMounted(async () => {
     <ProductCard v-for="product in products" :key="product.id">
       <template #image>
         <div class="badge-wrapper">
-          <span class="badge">sconto {{ product.sconto }} %</span>
+          <span v-if="product.sconto" class="badge">sconto {{ product.sconto }} %</span>
           <router-link :to="`/detail/${product.id}`">
             <img :src="product.immagine_url" :alt="product.nome" />
           </router-link>
@@ -93,8 +93,8 @@ onMounted(async () => {
 
       <template #footer>
         <div class="price-container">
-          <span class="old-price">{{ product.prezzo }}</span>
-          <span class="new-price">{{ product.prezzo_scontato }}</span>
+          <span class="old-price">€ {{ product.prezzo }}</span>
+          <span class="new-price">€ {{ product.prezzo_scontato.toFixed(2) }}</span>
         </div>
         <button class="add-btn" @click="cartStore.addToCart">Aggiungi</button>
       </template>
@@ -105,17 +105,18 @@ onMounted(async () => {
 <style scoped>
 .grid {
   display: grid;
-  grid: auto-flow / repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
+  padding: 20px;
 }
 
 .badge {
   position: absolute;
-  left: 5px;
-  top: 5px;
+  left: 10px;
+  top: 10px;
   color: rgb(245, 229, 229);
-  background-color: rgb(57, 113, 8);
-  border-radius: 10px;
+  background-color: rgba(233, 7, 7, 0.671);
+  border-radius: 7px;
   font-size: 0.8em;
   padding: 4px;
 }
@@ -126,6 +127,7 @@ onMounted(async () => {
 .add-btn {
   padding: 10px;
   cursor: pointer;
+  border-radius: 7px;
 }
 
 .old-price {

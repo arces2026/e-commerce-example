@@ -12,6 +12,12 @@
             </li>
             <li v-else><router-link to="/login">Login</router-link></li>
             <li><router-link to="/register">Register</router-link></li>
+             <li id="cart">
+        <router-link to="/cart"
+          ><font-awesome-icon :icon="['fas', 'cart-shopping']" /><span id="counter">{{
+            cartStore.totalItems
+          }}</span></router-link
+        ></li>
         </ul>
     </nav>
 </template>
@@ -19,9 +25,11 @@
 <script setup>
     import { useAuthStore } from '@/stores/authStore';
     import { useRouter } from 'vue-router';
+    import { useCartStore } from '@/stores/cartStore';
 
     const router = useRouter();
     const authStore = useAuthStore();
+    const cartStore = useCartStore();
 
     function handleLogout(){
         authStore.logout();
