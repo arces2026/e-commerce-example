@@ -1,3 +1,18 @@
+<script setup>
+import { useCartStore } from '@/stores/cartStore.js'
+import ProductCard from './ProductCard.vue'
+
+const cartStore = useCartStore()
+
+const props = defineProps({
+  data: {
+    type: Array,
+    required: true,
+    default: () => [],
+  },
+})
+</script>
+
 <template>
   <div class="cart-container">
     <h2 class="cart-title">Prodotti nel carrello</h2>
@@ -23,9 +38,9 @@
         <template #footer>
           <div class="product-footer">
             <div class="price-section">
-              <p v-if="item.sconto > 0" class="original-price">€ {{ item.prezzo.toFixed(2) }}</p>
+              <p v-if="item.sconto > 0" class="original-price">€ {{ item.prezzo?.toFixed(2) ?? '0.00'}}</p>
               <p class="current-price" :class="{ discounted: item.sconto > 0 }">
-                € {{ item.prezzo_scontato.toFixed(2) }}
+                € {{ item.prezzo_scontato?.toFixed(2) ?? '0.00' }}
               </p>
             </div>
 
@@ -49,20 +64,6 @@
   </div>
 </template>
 
-<script setup>
-import { useCartStore } from '@/stores/cartStore.js'
-import ProductCard from './ProductCard.vue'
-
-const cartStore = useCartStore()
-
-const props = defineProps({
-  data: {
-    type: Array,
-    required: true,
-    default: () => [],
-  },
-})
-</script>
 
 <style scoped>
 .cart-container {

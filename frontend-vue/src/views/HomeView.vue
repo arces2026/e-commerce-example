@@ -68,14 +68,6 @@ h2 {
   text-shadow: 3px 3px 3px black;
 }
 
-img {
-  /* object-fit: fill; */
-  /* border-radius: 50%; */
-  /* height: 80vh; */
-  /* mask-image: radial-gradient(circle, black 90%, transparent 100%);
-  -webkit-mask-image: radial-gradient(circle, black 20%, transparent 100%); */
-}
-
 /* Smartphone styles (applies when screen is 768px or smaller) */
 @media (max-width: 600px) {
   h1 {
