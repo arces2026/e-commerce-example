@@ -94,6 +94,17 @@ const props = defineProps({
   gap: 20px;
 }
 
+.badge {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  color: rgb(245, 229, 229);
+  background-color: rgba(233, 7, 7, 0.671);
+  border-radius: 7px;
+  font-size: 0.8em;
+  padding: 4px;
+}
+
 .product-card {
   background: white;
   border-radius: 8px;

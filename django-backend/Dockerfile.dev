@@ -12,8 +12,12 @@ WORKDIR /app
 # Copia il file dei requisiti dal tuo computer locale alla directory corrente del container
 COPY requirements.txt .
 
-# Installa le dipendenze Python elencate nel file, evitando di memorizzare la cache locale
-RUN pip install --no-cache-dir -r requirements.txt
+# Installa le dipendenze Python con timeout aumentato
+# RUN pip install --no-cache-dir  -r requirements.txt
+RUN pip install --no-cache-dir \
+    --default-timeout=1000 \
+    --retries=5 \
+    -r requirements.txt
 
 # Copia tutti i restanti file del progetto dal tuo computer locale al container
 COPY . .

@@ -49,10 +49,6 @@ e
 </template>
 
 <style scoped>
-* {
-  /* border: 1px solid black; */
-}
-
 #container {
   width: 100vw;
   display: flex;

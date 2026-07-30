@@ -11,6 +11,7 @@ const cartStore = useCartStore();
 // Debug logs
 console.log({ items: cartStore.items });
 console.log({ totalItems: cartStore.totalItems });
+console.log({test: 'test'})
 
 
 </script>

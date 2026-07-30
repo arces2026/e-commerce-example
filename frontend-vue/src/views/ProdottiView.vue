@@ -75,10 +75,6 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-#container {
- /* background: linear-gradient(to right, #292311, #d19c49); */
-}
-
 .spinner {
   position: absolute;
   top: 50%;
