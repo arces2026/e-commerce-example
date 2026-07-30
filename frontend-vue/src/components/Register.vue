@@ -85,13 +85,14 @@ const HandleRegister = async () => {
 
 <style scoped>
 form {
+  margin-top: 0;
   max-width: 400px;
   min-width: 300px; 
   background-color: transparent;
 }
 
 label {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 input {

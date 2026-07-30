@@ -228,7 +228,7 @@ console.log({test: 'test'})
     padding: 16px;
     margin-top: 20px;
     border-radius: 8px;
-    position: static;
+    /* position: static; */
   }
   
   .summary-title {
