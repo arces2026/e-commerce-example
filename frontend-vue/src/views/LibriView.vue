@@ -1,6 +1,5 @@
 <script setup>
 import Grid from '@/components/Grid.vue'
-import ProductList from '@/components/ProductList.vue'
 import { onMounted, ref } from 'vue'
 import { get } from '@/plugins/api'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
@@ -44,7 +43,7 @@ onMounted(async () => {
       </ul>
     </form>
 
-    <ProductList></ProductList>
+    <!-- <ProductList></ProductList> -->
     <LoadingSpinner v-if="loading"/>
     <Grid
     
@@ -56,12 +55,6 @@ onMounted(async () => {
     >
     </Grid>
 
-    <!-- <Grid
-      style="width: 45%;"
-      :data="autori"
-      :columns="gridAutoriColumns"
-      :filter-key="searchQuery">
-    </Grid> -->
   </main>
 </template>
 

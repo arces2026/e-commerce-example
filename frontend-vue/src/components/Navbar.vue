@@ -5,7 +5,8 @@
     <!-- Link di navigazione -->
     <ul class="nav-links">
       <li><router-link to="/">Home</router-link></li>
-      <li><router-link to="/products">Prodotti</router-link></li>
+      <li><router-link to="/prodotti">Prodotti</router-link></li>
+      <li><router-link to="/libri">Libri</router-link></li>
       <li><router-link to="/users">Utenti</router-link></li>
       <li v-if="authStore.token">
         <a href="#" @click.prevent="handleLogout">Logout</a>

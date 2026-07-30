@@ -1,7 +1,7 @@
 import DetailView from '@/views/DetailView.vue'
 import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
-import ProductsView from '@/views/ProductsView.vue'
+import LibriView from '@/views/LibriView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import UsersView from '@/views/UsersView.vue'
 import CartView from '@/views/CartView.vue'
@@ -19,14 +19,20 @@ const router = createRouter({
       meta: { requiresAuth: true }, // Il componente associato
     },
     {
+      path: '/prodotti',
+      name: 'prodotti',
+      component: () => import('@/views/ProdottiView.vue'),
+      meta: { pageTitle: 'Prodotti'}
+    },
+    {
       path: '/detail/:id', // L'URL del browser
       name: 'detail', // Un nome univoco per la rotta (opzionale ma consigliato)
       component: DetailView, // Il componente associato
     },
     {
-      path: '/products', // L'URL del browser
-      name: 'products', // Un nome univoco per la rotta (opzionale ma consigliato)
-      component: ProductsView, // Il componente associato
+      path: '/libri', // L'URL del browser
+      name: 'libri', // Un nome univoco per la rotta (opzionale ma consigliato)
+      component: LibriView, // Il componente associato
     },
     {
       path: '/users',

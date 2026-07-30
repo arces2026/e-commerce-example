@@ -3,37 +3,6 @@ defineProps({
   product: Object //Optional, for internal use
 })
 
-// defineProps({
-//   nome: String,
-//   prezzo: Number,
-//   sconto: { type: Number, default: 0 },
-//   prezzo_scontato: Number, // ← arriva già calcolato
-//   valuta: { type: String, default: 'EUR' },
-//   descrizione: String,
-//   categoria: String,
-//   materiale: String,
-//   disponibilita: { type: Boolean, default: true },
-
-//   // Array di taglie (JSONField Django → Array JS)
-//   taglie_disponibili: {
-//     type: Array,
-//     default: () => [], //Array/Object: default SEMPRE come funzione
-//   },
-
-//   // URL immagine (nullable)
-//   immagine_url: {
-//     type: String,
-//     default: null,
-//   },
-
-//   // Sconto (DecimalField → Number in JS)
-//   sconto: {
-//     type: Number,
-//     default: 0.0,
-//     validator: (val) => val >= 0 && val <= 100,
-//   },
-//   prezzo_scontato: Number,
-// })
 </script>
 
 <template>

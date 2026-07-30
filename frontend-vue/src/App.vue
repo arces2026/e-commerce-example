@@ -10,8 +10,3 @@ import Navbar from './components/Navbar.vue';
     </main>
 </template>
 
-<style scoped>
-    main{
-        padding: 0.8rem;
-    }
-</style>

@@ -1,149 +1,66 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import ProductCard from '@/components/ProductCard.vue'
-// import getProducts from '@/services/productService'
-import { useCartStore } from '@/stores/cartStore'
-import { get } from '@/plugins/api'
-import LoadingSpinner from '@/components/LoadingSpinner.vue'
-
-
-const cartStore = useCartStore()
-
-console.log({ cart: cartStore.totalItems })
-
-// defineProps({
-//   nome: String,
-//   prezzo: Number,
-//   sconto: { type: Number, default: 0 },
-//   prezzo_scontato: Number, // ← arriva già calcolato
-//   valuta: { type: String, default: 'EUR' },
-//   descrizione: String,
-//   categoria: String,
-//   materiale: String,
-//   disponibilita: { type: Boolean, default: true },
-
-//   // Array di taglie (JSONField Django → Array JS)
-//   taglie_disponibili: {
-//     type: Array,
-//     default: () => [], //Array/Object: default SEMPRE come funzione
-//   },
-
-//   // URL immagine (nullable)
-//   immagine_url: {
-//     type: String,
-//     default: null,
-//   },
-
-//   // Sconto (DecimalField → Number in JS)
-//   sconto: {
-//     type: Number,
-//     default: 0.0,
-//     validator: (val) => val >= 0 && val <= 100,
-//   },
-//   prezzo_scontato: Number,
-// })
-
-const products = ref([])
-const error = ref(null)
-const loading = ref(false)
-
-onMounted(async () => {
-  try {
-    // products.value = await getProducts()
-    loading.value = true
-    const token = localStorage.getItem('access_token')
-    const data = await get('/api/v1/scarpe', {
-      Authorization: `Bearer ${token}`,
-    })
-    loading.value = false
-    console.log({ dataresults: data.results })
-    products.value = data.results
-  } catch (err) {
-    error.value = 'Impossibile caricare i prodotti.'
-  } finally {
-    loading.value = false
-  }
-  // console.log(products.value)
-})
+import { RouterLink } from 'vue-router';
 </script>
 
 <template>
-  <LoadingSpinner v-if="loading"/>
-  <main class="grid">
-    
-    <ProductCard v-for="product in products" :key="product.id">
-      <template #image>
-        <div class="badge-wrapper">
-          <span v-if="product.sconto" class="badge">sconto {{ product.sconto }} %</span>
-          <router-link :to="`/detail/${product.id}`">
-            <img :src="product.immagine_url" :alt="product.nome" />
-          </router-link>
-        </div>
-      </template>
-
-      <template #content>
-        <router-link :to="`/detail/${product.id}`" id="r-link-content">
-          <span class="category">{{ product.categoria }}</span>
-          <h3 class="custom-title">{{ product.nome }}</h3>
-          <p class="custom-desc">
-            {{ product.descrizione }}
-          </p>
-        </router-link>
-      </template>
-
-      <template #footer>
-        <div class="price-container">
-          <span class="old-price">€ {{ product.prezzo }}</span>
-          <span class="new-price">€ {{ product.prezzo_scontato.toFixed(2) }}</span>
-        </div>
-        <button class="add-btn" @click="cartStore.addToCart">Aggiungi</button>
-      </template>
-    </ProductCard>
-  </main>
+  <div class="container">
+    <h1>Oli di Sicilia</h1>
+    <RouterLink to="/prodotti"><h2>Scopri i nostri prodotti <font-awesome-icon icon="arrow-right-to-bracket" class="icon"/></h2></RouterLink>
+    <img :src="'/public/images/hero-olive-v2.jpg'" alt="" />
+  </div>
 </template>
 
 <style scoped>
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.badge {
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100%;
+  background: linear-gradient(to right, #292311, #d19c49);
+}
+
+h1 {
   position: absolute;
-  left: 10px;
-  top: 10px;
-  color: rgb(245, 229, 229);
-  background-color: rgba(233, 7, 7, 0.671);
-  border-radius: 7px;
-  font-size: 0.8em;
-  padding: 4px;
+  top: 150px;
+  left: 250px;
+  color: #f5af47;
+  font-size: 4rem;
+  text-shadow:
+    3px 3px 0px rgba(0, 0, 0, 0.3),
+    /* Deep shadow */ 0px 0px 20px #1b170f; /* Red glow on top */
+    z-index: 10;
 }
-#r-link-content {
+
+.icon {
+  display: block;
+  margin-left: 50%;
+  font-size: 2rem;
+  filter: drop-shadow(2px 2px 4px rgb(0, 0, 0))
+}
+
+h2 {
+  position: absolute;
+  top: 250px;
+  left: 260px;
   text-decoration: none;
-  color: inherit;
-}
-.add-btn {
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 7px;
+  color: white;
+  font-size: 2.2rem;
+  text-shadow: 3px 3px 3px black;
 }
 
-.old-price {
-  font-size: 0.9rem;
-  color: #757575;
-  /* Grigio sbiadito */
-  text-decoration: line-through;
-  /* Barra il testo */
-  margin-right: 10px;
-}
-
-/* Stile per il nuovo prezzo */
-.new-price {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #d32f2f;
-  /* Un rosso per l'offerta, oppure usa il verde/colore del tuo brand */
+img {
+  /* object-fit: fill; */
+  /* border-radius: 30%; */
+  /* height: 80vh; */
+    /* mask-image: radial-gradient(circle, black 90%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle, black 20%, transparent 100%); */
 }
 </style>
