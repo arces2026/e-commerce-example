@@ -1,3 +1,18 @@
+<script setup>
+import { useAuthStore } from '@/stores/authStore'
+import { useRouter } from 'vue-router'
+import { useCartStore } from '@/stores/cartStore'
+
+const router = useRouter()
+const authStore = useAuthStore()
+const cartStore = useCartStore()
+
+function handleLogout() {
+  authStore.logout()
+  router.push('/login')
+}
+</script>
+
 <template>
   <nav class="navbar">
     <!-- Logo del sito -->
@@ -6,8 +21,8 @@
     <ul class="nav-links">
       <li><router-link to="/">Home</router-link></li>
       <li><router-link to="/prodotti">Prodotti</router-link></li>
-      <li><router-link to="/libri">Libri</router-link></li>
-      <li><router-link to="/users">Utenti</router-link></li>
+      <li><router-link to="/libri">Libri 🔒</router-link></li>
+      <li><router-link to="/users">Utenti 🔒</router-link></li>
       <li v-if="authStore.token">
         <a href="#" @click.prevent="handleLogout">Logout</a>
       </li>
@@ -24,20 +39,7 @@
   </nav>
 </template>
 
-<script setup>
-import { useAuthStore } from '@/stores/authStore'
-import { useRouter } from 'vue-router'
-import { useCartStore } from '@/stores/cartStore'
 
-const router = useRouter()
-const authStore = useAuthStore()
-const cartStore = useCartStore()
-
-function handleLogout() {
-  authStore.logout()
-  router.push('/login')
-}
-</script>
 
 <style scoped>
 * {

@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useRouter } from 'vue-router'
 import Button from './ui/Button.vue'
-import HeartIcon from './ui/HeartIcon.vue'
 import LoadingSpinner from './LoadingSpinner.vue'
 
 const authStore = useAuthStore()
@@ -12,7 +11,6 @@ const router = useRouter()
 const username = ref('')
 const password = ref('')
 const loading = ref(false)
-// const loading = ref(false)
 const error = ref('')
 const successMessage = ref('')
 
@@ -23,7 +21,7 @@ const handleLogin = async () => {
   const result = await authStore.login(username.value, password.value)
 
   if (result.success) {
-    successMessage.value = 'Redirecting...'
+    successMessage.value = 'Accesso effettuato con successo. Reindirizzamento...'
     setTimeout(() => {
       router.push('/')
     }, 2000)
@@ -38,11 +36,13 @@ e
 <template>
     <LoadingSpinner v-if="loading" id="spinner"/>
     <form>
-      <input type="text" placeholder="Username" v-model="username" />
-      <input type="password" placeholder="Password" v-model="password" />
-      <Button type="submit" @click.prevent="handleLogin"> <span>Login</span><HeartIcon /> </Button>
-      <p v-if="error">{{ error }}</p>
-      <p v-else>{{ successMessage }}</p>
+      <label for="username">Username</label>
+      <input id='username' type="text" placeholder="Username" v-model="username" />
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="Password" v-model="password" />
+      <Button type="submit" @click.prevent="handleLogin"> <span>Login</span> </Button>
+      <p v-if="error" class="para error">{{ error }}</p>
+      <p v-else class="para success">{{ successMessage }}</p>
     </form>
 </template>
 
@@ -52,8 +52,29 @@ e
 }
 form {
   max-width: 400px;
+  background-color: transparent;
 }
+
+label {
+  font-size: 1.5rem;
+}
+
 input {
-  padding: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.para {
+  font-size: 1.5rem;
+  margin: 20px auto;
+}
+
+.para.error {
+  color: red;
+}
+
+.para.success {
+  color: green;
 }
 </style>

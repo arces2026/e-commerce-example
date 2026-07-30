@@ -21,7 +21,7 @@ onMounted(async () => {
     loading.value = true
     const token = localStorage.getItem('access_token')
     const data = await get('/api/v1/scarpe', {
-      Authorization: `Bearer ${token}`,
+      // Authorization: `Bearer ${token}`, // Resa libera per tutti
     })
     loading.value = false
     console.log({ dataresults: data.results })

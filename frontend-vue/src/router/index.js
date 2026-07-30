@@ -16,13 +16,13 @@ const router = createRouter({
       path: '/', // L'URL del browser
       name: 'home', // Un nome univoco per la rotta (opzionale ma consigliato)
       component: HomeView,
-      meta: { requiresAuth: true }, // Il componente associato
+      // meta: { requiresAuth: true }, // Il componente associato
     },
     {
       path: '/prodotti',
       name: 'prodotti',
       component: () => import('@/views/ProdottiView.vue'),
-      meta: { pageTitle: 'Prodotti'}
+      meta: { pageTitle: 'Prodotti' },
     },
     {
       path: '/detail/:id', // L'URL del browser
@@ -33,6 +33,7 @@ const router = createRouter({
       path: '/libri', // L'URL del browser
       name: 'libri', // Un nome univoco per la rotta (opzionale ma consigliato)
       component: LibriView, // Il componente associato
+      meta: { requiresAuth: true },
     },
     {
       path: '/users',

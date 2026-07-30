@@ -2,6 +2,7 @@
 import { ref, reactive } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useRouter } from 'vue-router'
+import  Button  from '@/components/ui/Button.vue'
 
 
 const authStore = useAuthStore()
@@ -16,12 +17,7 @@ const form = reactive({
   password2: '',
 })
 
-// const username = ref('')
-// const password = ref('')
-// const password2 = ref('')
-// const email = ref('')
-// const firstName = ref('')
-// const lastName = ref('')
+
 const registrationMessage = ref('')
 const registrationError = ref('')
 const loading = ref(false)
@@ -43,7 +39,7 @@ const HandleRegister = async () => {
   const result = await authStore.register(form)
 
   if (result.success) {
-    registrationMessage.value = 'Registration successful! Redirecting to login...'
+    registrationMessage.value = 'Registration successful! Reindirizzamento al login...'
     // Clear form
     Object.keys(form).forEach((key) => (form[key] = ''))
     // Redirect to login after 2 sec
@@ -69,13 +65,51 @@ const HandleRegister = async () => {
 
 <template>
   <form>
-    <input type="text" placeholder="First name" v-model="form.first_name" />
-    <input type="text" placeholder="Last Name" v-model="form.last_name" />
-    <input type="email" placeholder="Email" v-model="form.email" />
-    <input type="text" placeholder="Username" v-model="form.username" />
-    <input type="password" placeholder="Password" v-model="form.password" />
-    <input type="password" placeholder="retype Password" v-model="form.password2" />
-    <button type='submit' @click.prevent="HandleRegister">Register</button>
-    <p>{{ registrationMessage }}</p>
+    <label for="nome">Nome</label>
+    <input id="nome" type="text" placeholder="nome..." v-model="form.first_name" />
+    <label for="cognome">Cognome</label>
+    <input id="cognome" type="text" placeholder="Cognome..." v-model="form.last_name" />
+    <label for="email">Email</label>
+    <input type="email" placeholder="Email..." v-model="form.email" />
+    <label for="username">Username</label>
+    <input id="username" type="text" placeholder="Username..." v-model="form.username" />
+    <label for="password">Password</label>
+    <input id="password" type="password" placeholder="Password..." v-model="form.password" />
+    <label for="password2">Conferma password</label>
+    <input id="password2" type="password" placeholder="Reinserisci password..." v-model="form.password2" />
+    <Button type='submit' @click.prevent="HandleRegister">Register</Button>
+    <p v-if="registrationMessage" class="para success">{{ registrationMessage }}</p>
+    <p v-else calss="para error">{{ registrationError }}</p>
   </form>
 </template>
+
+<style scoped>
+form {
+  max-width: 400px;
+  min-width: 300px;
+  background-color: transparent;
+}
+
+label {
+  font-size: 1.2rem;
+}
+
+input {
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.para {
+  font-size: 1.5rem;
+  margin: 20px auto;
+}
+
+.para.error {
+  color: red;
+}
+
+.para.success {
+  color: green;
+}
+</style>
