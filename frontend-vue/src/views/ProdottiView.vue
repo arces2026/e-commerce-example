@@ -67,7 +67,7 @@ onMounted(async () => {
           <span class="old-price">€ {{ product.prezzo }}</span>
           <span class="new-price">€ {{ product.prezzo_scontato.toFixed(2) }}</span>
         </div>
-        <button class="add-btn" @click="cartStore.addToCart">Aggiungi</button>
+        <button class="add-btn" @click="cartStore.addToCart(product)">Aggiungi</button>
       </template>
     </ProductCard>
   </main>
