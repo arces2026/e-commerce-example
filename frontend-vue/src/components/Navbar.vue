@@ -52,6 +52,7 @@ function handleLogout() {
 
 /* Stile principale della Navbar */
 .navbar {
+  width: 100vw;
   display: flex;
   justify-content: space-between; /* Separa il logo dai link */
   align-items: center; /* Allinea verticalmente al centro */

@@ -34,25 +34,41 @@ const handleLogin = async () => {
 e
 
 <template>
-    <LoadingSpinner v-if="loading" id="spinner"/>
+  <div id="container">
+    <LoadingSpinner v-if="loading" id="spinner" />
     <form>
       <label for="username">Username</label>
-      <input id='username' type="text" placeholder="Username" v-model="username" />
+      <input id="username" type="text" placeholder="Username" v-model="username" />
       <label for="password">Password</label>
       <input id="password" type="password" placeholder="Password" v-model="password" />
       <Button type="submit" @click.prevent="handleLogin"> <span>Login</span> </Button>
       <p v-if="error" class="para error">{{ error }}</p>
       <p v-else class="para success">{{ successMessage }}</p>
     </form>
+  </div>
 </template>
 
 <style scoped>
+* {
+  /* border: 1px solid black; */
+}
+
+#container {
+  width: 100vw;
+  display: flex;
+  align-items: start;
+  justify-content: flex-start;
+  height: 100vh;
+}
+
 #spinner {
   position: absolute;
 }
 form {
   max-width: 400px;
+  min-width: 300px;
   background-color: transparent;
+  margin-top: 0;
 }
 
 label {
