@@ -6,7 +6,7 @@ import { RouterLink } from 'vue-router';
   <div class="container">
     <h1>Oli di Sicilia</h1>
     <RouterLink to="/prodotti"><h2>Scopri i nostri prodotti <font-awesome-icon icon="arrow-right-to-bracket" class="icon"/></h2></RouterLink>
-    <img :src="'/public/images/hero-olive-v2.jpg'" alt="" />
+    <img :src="'/images/hero-olive-v2.jpg'" alt="" />
   </div>
 </template>
 
