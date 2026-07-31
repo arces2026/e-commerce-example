@@ -56,6 +56,11 @@ const router = createRouter({
       name: 'cart',
       component: CartView,
     },
+    {
+      path: '/privacy-policy',
+      name: 'privacy policy',
+      component: () => import('@/views/PrivacyPolicyView.vue')
+    }
   ],
 })
 

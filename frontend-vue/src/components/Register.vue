@@ -64,7 +64,7 @@ const HandleRegister = async () => {
 </script>
 
 <template>
-  <form>
+  <form class="flex flex-col max-w-100 min-w-75 mt-6 m-auto">
     <label for="nome">Nome</label>
     <input id="nome" type="text" placeholder="nome..." v-model="form.first_name" />
     <label for="cognome">Cognome</label>
@@ -84,24 +84,27 @@ const HandleRegister = async () => {
 </template>
 
 <style scoped>
-form {
+/* form {
   margin-top: 0;
   max-width: 400px;
   min-width: 300px; 
   background-color: transparent;
-}
+} */
 
 label {
   font-size: 1rem;
+  color: white;
 }
 
 input {
   padding: 8px;
   border-radius: 5px;
   margin-bottom: 10px;
+  background-color: oklch(96.2% 0.059 95.617);
+  border-radius: 8px;
 }
 
-.para {
+/* .para {
   font-size: 1.5rem;
   margin: 20px auto;
 }
@@ -112,5 +115,5 @@ input {
 
 .para.success {
   color: green;
-}
+} */
 </style>

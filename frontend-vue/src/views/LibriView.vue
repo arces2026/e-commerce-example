@@ -58,7 +58,7 @@ onMounted(async () => {
   </main>
 </template>
 
-<style>
+<style scoped>
 .main {
   display: flex;
   justify-content: space-between;

@@ -32,7 +32,7 @@ defineProps({
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 3px 3px 12px black;
-  background-color: #fff;
+  background-color: oklch(96.2% 0.059 95.617);
   display: flex;
   flex-direction: column;
   max-width: 320px;
@@ -75,7 +75,7 @@ defineProps({
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fafafa;
+  background-color: oklch(96.2% 0.059 95.617);
 }
 
 .product-card__price {

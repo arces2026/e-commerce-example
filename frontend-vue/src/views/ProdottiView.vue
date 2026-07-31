@@ -39,7 +39,7 @@ onMounted(async () => {
 
   <div id="container">
      
-  <h1>Lista prodotti</h1>
+  <h1 class="text-amber-100">Lista prodotti</h1>
   <main class="grid">
      <LoadingSpinner v-if="loading" class="spinner"/>
     <ProductCard v-for="product in products" :key="product.id">
@@ -85,7 +85,7 @@ h1 {
   text-align: center;
   font-size: 3.5rem;
   /* color:#c9974d; */
-  color: white;
+  /* color: white; */
   /* text-shadow: 3px 3px 6px; */
   text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3),
     /* Deep shadow */ 0px 0px 20px #5c5038; /* Red glow on top */
