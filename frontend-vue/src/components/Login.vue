@@ -4,6 +4,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useRouter } from 'vue-router'
 import Button from './ui/Button.vue'
 import LoadingSpinner from './LoadingSpinner.vue'
+import ModalVue from './ModalVue.vue'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -13,6 +14,7 @@ const password = ref('')
 const loading = ref(false)
 const error = ref('')
 const successMessage = ref('')
+const showModal = ref(false)
 
 const handleLogin = async () => {
   loading.value = true
@@ -21,9 +23,11 @@ const handleLogin = async () => {
   const result = await authStore.login(username.value, password.value)
 
   if (result.success) {
+    showModal.value = true
     successMessage.value = 'Accesso effettuato con successo. Reindirizzamento...'
     setTimeout(() => {
       router.push('/')
+      showModal.value = false
     }, 2000)
   } else {
     error.value = 'Invalid username or password'
@@ -38,6 +42,9 @@ const handleLogin = async () => {
     <div v-if="loading" class="fixed inset-0 bg-black/50 flex justify-center items-center z-10">
     <LoadingSpinner />
     </div>
+    <ModalVue v-if="showModal">
+      <p class="text-2xl text-center text-green-400">{{ successMessage }}</p>
+    </ModalVue>
     <form class="max-w-100  min-w-75  mt-10 m-auto flex flex-col">
       <label for="username" class="text-2xl text-amber-100">Username</label>
       <input
@@ -57,7 +64,7 @@ const handleLogin = async () => {
       />
       <Button  type="submit" @click.prevent="handleLogin"><span>Login</span></Button>
       <p v-if="error" class="text-2xl my-5 mx-auto text-red-600">{{ error }}</p>
-      <p v-else class="text-2xl my-5 mx-auto text-green-600">{{ successMessage }}</p>
+      <!-- <p v-else class="text-2xl my-5 mx-auto text-green-600">{{ successMessage }}</p> -->
     </form>
   </div>
 </template>

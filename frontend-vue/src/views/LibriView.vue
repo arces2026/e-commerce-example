@@ -25,8 +25,8 @@ onMounted(async () => {
  
   console.log(libri.value)
 
-  const autori = await get('/api/v1/autori/')
-  console.log({ autori: autori })
+  const autori = await get('/api/v1/autori/1')
+  console.log({ autori: autori.libri })
   autori.value = autori.results
   // console.log(autori.value);
 })
