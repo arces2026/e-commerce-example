@@ -17,18 +17,25 @@ console.log({test: 'test'})
 </script>
 
 <template>
-  <div class="cart-page">
-    <CartVue :data="cartStore.items" />
+  <div class="sm:flex justify-evenly m-auto">
     
-    <div class="cart-summary">
-      <div class="summary-header">
-        <h2 class="summary-title">Riepilogo ordine</h2>
+    
+    <!-- <div class="cart-summary"> -->
+      <div class="bg-amber-100 h-fit rounded-2xl border-2 border-amber-400 p-4 w-9/10 sm:w-1/2 sm:sticky top-20 m-auto my-10 ">
+      <div class="bg-amber-400 mb-2 p-4 w-[110%] rounded-tl-2xl rounded-tr-2xl -mx-4 -my-4">
+        <h2 class="text-2xl font-bold w-full">Riepilogo ordine</h2>
       </div>
       
       <div class="summary-content">
-        <div class="summary-row" v-for="item in cartStore.items" :key="item.id">
-            <span class="summary-nome">{{ item.nome }} ({{ item.quantity }} unità)</span>
-            <span class="summary-prezzo">€ {{ item.prezzo }}</span>
+        
+        <div class="flex flex-col" v-for="item in cartStore.items" :key="item.id">
+          <div class="flex justify-evenly">
+            <span class="text-wrap w-2/3">{{ item.nome }} ({{ item.quantity }} unità)</span>
+            <!-- <span class="summary-nome">{{ item.nome }} ({{ item.quantity }} unità)</span> -->
+            <span class="summary-prezzo">€ {{ item.prezzo.toFixed(2) }}</span>
+            
+            </div>
+            <hr class="block border-amber-400 w-1/2 mx-auto my-4"/>
         </div>
 
         
@@ -78,11 +85,12 @@ console.log({test: 'test'})
         </button>
       </div>
     </div>
+    <CartVue :data="cartStore.items" />
   </div>
 </template>
 
 <style scoped>
-.cart-page {
+/* .cart-page {
     display: flex;
     justify-content: space-evenly;
   max-width: 1200px;
@@ -90,7 +98,7 @@ console.log({test: 'test'})
   padding: 20px;
   min-height: 100vh;
   background: #f5f7fa;
-}
+} */
 
 .cart-summary {
   background: white;
@@ -143,7 +151,7 @@ console.log({test: 'test'})
 
 .summary-divider {
   height: 1px;
-  background: #e9ecef;
+  background: black;
   margin: 12px 0;
 }
 
