@@ -34,9 +34,11 @@ const handleLogin = async () => {
 
 
 <template>
-  <div id="container" class="w-screen h-screen flex items-center justify-start">
-    <LoadingSpinner v-if="loading" id="spinner" class="absolute" />
-    <form class="max-w-100 min-w-75  mt-0 flex flex-col">
+  <div  class="h-full">
+    <div v-if="loading" class="fixed inset-0 bg-black/50 flex justify-center items-center z-10">
+    <LoadingSpinner />
+    </div>
+    <form class="max-w-100  min-w-75  mt-10 m-auto flex flex-col">
       <label for="username" class="text-2xl text-amber-100">Username</label>
       <input
         id="username"
@@ -53,7 +55,7 @@ const handleLogin = async () => {
         v-model="password"
         class="p-2 rounded-lg mb-5 bg-amber-100"
       />
-      <Button type="submit" @click.prevent="handleLogin"><span>Login</span></Button>
+      <Button  type="submit" @click.prevent="handleLogin"><span>Login</span></Button>
       <p v-if="error" class="text-2xl my-5 mx-auto text-red-600">{{ error }}</p>
       <p v-else class="text-2xl my-5 mx-auto text-green-600">{{ successMessage }}</p>
     </form>

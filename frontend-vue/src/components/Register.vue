@@ -64,7 +64,7 @@ const HandleRegister = async () => {
 </script>
 
 <template>
-  <form class="flex flex-col max-w-100 min-w-75 mt-6 m-auto">
+  <form class="flex flex-col max-w-100 min-w-75 mt-10 m-auto">
     <label for="nome">Nome</label>
     <input id="nome" type="text" placeholder="nome..." v-model="form.first_name" />
     <label for="cognome">Cognome</label>
@@ -77,20 +77,13 @@ const HandleRegister = async () => {
     <input id="password" type="password" placeholder="Password..." v-model="form.password" />
     <label for="password2">Conferma password</label>
     <input id="password2" type="password" placeholder="Reinserisci password..." v-model="form.password2" />
-    <Button type='submit' @click.prevent="HandleRegister">Register</Button>
+    <Button class="mt-2 mb-2" type='submit' @click.prevent="HandleRegister">Register</Button>
     <p v-if="registrationMessage" class="para success">{{ registrationMessage }}</p>
-    <p v-else calss="para error">{{ registrationError }}</p>
+    <p v-else class="para error">{{ registrationError }}</p>
   </form>
 </template>
 
 <style scoped>
-/* form {
-  margin-top: 0;
-  max-width: 400px;
-  min-width: 300px; 
-  background-color: transparent;
-} */
-
 label {
   font-size: 1rem;
   color: white;

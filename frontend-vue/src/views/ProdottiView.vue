@@ -37,11 +37,13 @@ onMounted(async () => {
 
 <template>
 
-  <div id="container">
+  <div id="container" class="flex flex-col min-h-screen">
      
   <h1 class="text-amber-100">Lista prodotti</h1>
   <main class="grid">
-     <LoadingSpinner v-if="loading" class="spinner"/>
+    <div v-if="loading" class="fixed inset-0 w-screen h-screen flex justify-center items-center z-10 bg-black/30">
+     <LoadingSpinner />
+     </div>
     <ProductCard v-for="product in products" :key="product.id">
       <template #image>
         <div class="badge-wrapper">
@@ -75,11 +77,11 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.spinner {
+/* .spinner {
   position: absolute;
   top: 50%;
   left: 50%;
-}
+} */
 
 h1 {
   text-align: center;

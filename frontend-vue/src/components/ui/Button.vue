@@ -11,7 +11,7 @@
         color: rgb(172, 103, 34);
         cursor: pointer;
         width: 200px;
-        margin: auto;
+        margin: 40px auto;
         border-radius: 10px;
         font-size: 1.5rem;
         transition: all 0.3s ease;
