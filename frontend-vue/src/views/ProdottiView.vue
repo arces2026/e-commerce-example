@@ -39,7 +39,7 @@ onMounted(async () => {
 
   <div id="container" class="flex flex-col min-h-screen">
      
-  <h1 class="text-center text-text text-5xl shadow-double">Lista prodotti</h1>
+  <h1 class="text-center text-accent text-5xl shadow-double">Lista prodotti</h1>
   <main class="grid">
     <div v-if="loading" class="fixed inset-0 w-screen h-screen flex justify-center items-center z-10 bg-black/30">
      <LoadingSpinner />

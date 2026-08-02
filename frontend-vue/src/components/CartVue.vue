@@ -15,10 +15,10 @@ const props = defineProps({
 
 <template>
   <div class="cart-container">
-    <h2 class="cart-title">Prodotti nel carrello</h2>
+    <h2 class="text-text text-2xl text-center mb-4">Prodotti nel carrello</h2>
 
     <div v-if="data.length === 0" class="empty-cart">
-      <p>Il carrello è vuoto</p>
+      <p class="text-text text-2xl">Il carrello è vuoto</p>
     </div>
 
     <div v-else class="cart-items">
@@ -31,8 +31,8 @@ const props = defineProps({
         </template>
 
         <template #content>
-          <h3 class="product-name">{{ item.nome }}</h3>
-          <p class="product-description">{{ item.descrizione }}</p>
+          <h3 class="text-xl text-accent">{{ item.nome }}</h3>
+          <p class="text-text">{{ item.descrizione }}</p>
         </template>
 
         <template #footer>
@@ -70,6 +70,7 @@ const props = defineProps({
   max-width: 400px;
   /* margin: 0 ; */
   padding: 20px;
+  background-color: var(--color-background);
 }
 
 .cart-title {
@@ -83,7 +84,7 @@ const props = defineProps({
 .empty-cart {
   text-align: center;
   padding: 40px;
-  background: #f8f9fa;
+  /* background: #f8f9fa; */
   border-radius: 8px;
   color: #6c757d;
 }
@@ -107,7 +108,7 @@ const props = defineProps({
 }
 
 .product-card {
-  background: white;
+  /* background: white; */
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;

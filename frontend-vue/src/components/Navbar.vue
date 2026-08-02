@@ -16,9 +16,11 @@ function handleLogout() {
 </script>
 
 <template>
-  <nav class="sticky top-0 bg-primary border-border-light flex justify-evenly text-text p-6">
+  <nav class="z-10 sticky top-0 bg-surface-2 
+  border-border-light flex justify-evenly text-text-secondary 
+  p-6 text-2xl">
     <!-- Logo del sito -->
-    <div class="w-full">BrandLogo</div>
+    <div class="w-full font-bold">BrandLogo</div>
     <!-- Link di navigazione -->
     <ul class="flex w-full gap-6 whitespace-nowrap">
       <li><router-link to="/">Home</router-link></li>
@@ -51,94 +53,10 @@ function handleLogout() {
   </nav>
 </template>
 
-<!-- 
+
 <style scoped>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  /* border: 1px solid white; */
+li:hover {
+  color: var(--color-text-inverted);
 }
 
-/* Stile principale della Navbar */
-/* .navbar {
-  width: 100vw;
-  display: flex;
-  justify-content: space-between; 
-  align-items: center; 
-  background-color: #1a1a1a; 
-  padding: 15px 30px;
-  position: sticky; 
-  top: 0;
-  z-index: 1000;
-} */
-
-/* Stile del Logo */
-.navbar .logo {
-  color: #ffffff;
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-/* Contenitore dei Link */
-.navbar .nav-links {
-  display: flex;
-  list-style: none; /* Rimuove i pallini dell'elenco puntato */
-}
-
-/* Spaziatura tra i singoli elementi della lista */
-.navbar .nav-links li {
-  padding: 0 15px;
-}
-
-/* Stile dei singoli link ipertestuali */
-.navbar .nav-links a {
-  color: #e0e0e0;
-  text-decoration: none; /* Rimuove la sottolineatura di default */
-  font-size: 16px;
-  font-weight: 500;
-  transition: color 0.3s ease; /* Transizione fluida per l'effetto hover */
-}
-
-/* Effetto al passaggio del mouse (Hover) */
-.navbar .nav-links a:hover {
-  color: #4da6ff; /* Cambia colore quando l'utente ci passa sopra */
-}
-
-#cart {
-    position: relative;
-}
-#counter-container {
-    position: absolute;
-    top: -8px;
-    right: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: red;
-    border-radius: 50%;
-    width: 17px;
-    font-size: .8rem;
-}
-
-
-/* 📱 Ottimizzazione Mobile (Responsive) */
-@media screen and (max-width: 768px) {
-  .navbar {
-    flex-direction: column; /* Dispone logo e link in verticale su schermi piccoli */
-    gap: 15px;
-  }
-
-  .navbar .nav-links {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .navbar .nav-links li {
-    padding: 5px 10px;
-  }
-}
-</style> -->
+</style>
