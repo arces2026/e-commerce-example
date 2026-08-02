@@ -7,12 +7,12 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Import the icons you want to use
-import { faUser, faHome, faSignOutAlt, faCartShopping, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faHome, faSignOutAlt, faCartShopping, faArrowRightToBracket, faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
 // Add more as needed
 
 
 // Add icons to the library
-library.add(faUser, faHome, faSignOutAlt, faCartShopping, faArrowRightToBracket)
+library.add(faUser, faHome, faSignOutAlt, faCartShopping, faArrowRightToBracket, faSun, faMoon)
 
 const app = createApp(App)
 const pinia = createPinia()

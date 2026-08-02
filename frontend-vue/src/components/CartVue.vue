@@ -25,7 +25,7 @@ const props = defineProps({
       <ProductCard v-for="item in data" :key="item.id" class="product-card">
         <template #image>
           <div class="badge-wrapper">
-            <span class="badge">Sconto {{ item.sconto }} %</span>
+            <span v-if="!item.sconto === 0" class="badge">Sconto {{ item.sconto }} %</span>
             <img :src="item.immagine_url" :alt="item.nome" class="product-image" />
           </div>
         </template>

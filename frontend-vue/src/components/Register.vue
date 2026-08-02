@@ -3,11 +3,12 @@ import { ref, reactive } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useRouter } from 'vue-router'
 import  Button  from '@/components/ui/Button.vue'
+import ModalVue from './ModalVue.vue'
 
 
 const authStore = useAuthStore()
 const router = useRouter()
-
+const showModal = ref(false)
 const form = reactive({
   username: '',
   email: '',
@@ -39,6 +40,7 @@ const HandleRegister = async () => {
   const result = await authStore.register(form)
 
   if (result.success) {
+    showModal.value = true
     registrationMessage.value = 'Registration successful! Reindirizzamento al login...'
     // Clear form
     Object.keys(form).forEach((key) => (form[key] = ''))
@@ -64,6 +66,9 @@ const HandleRegister = async () => {
 </script>
 
 <template>
+  <ModalVue v-if="showModal">
+    <p class="text-2xl text-green-400">{{ registrationMessage }}</p>
+  </ModalVue>
   <form class="flex flex-col max-w-100 min-w-75 mt-10 m-auto">
     <label for="nome">Nome</label>
     <input id="nome" type="text" placeholder="nome..." v-model="form.first_name" />
@@ -84,10 +89,10 @@ const HandleRegister = async () => {
 </template>
 
 <style scoped>
-label {
+/* label {
   font-size: 1rem;
   color: white;
-}
+} */
 
 input {
   padding: 8px;

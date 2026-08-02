@@ -14,33 +14,39 @@ function handleLogout() {
 </script>
 
 <template>
-  <nav class="navbar">
+  <nav class="bg-primary flex justify-evenly text-foreground-2 p-6">
     <!-- Logo del sito -->
-    <div class="logo">BrandLogo</div>
+    <div class="w-full">BrandLogo</div>
     <!-- Link di navigazione -->
-    <ul class="nav-links">
+    <ul class="flex w-full gap-6 whitespace-nowrap">
       <li><router-link to="/">Home</router-link></li>
       <li><router-link to="/prodotti">Prodotti</router-link></li>
-      <li><router-link to="/libri">Libri 🔒</router-link></li>
-      <li><router-link to="/users">Utenti 🔒</router-link></li>
+      <li class="no-wrap"><router-link to="/libri">Libri🔒</router-link></li>
+      <li><router-link to="/users">Utenti🔒</router-link></li>
       <li v-if="authStore.token">
         <a href="#" @click.prevent="handleLogout">Logout</a>
       </li>
       <li v-else><router-link to="/login">Login</router-link></li>
-      <li><router-link to="/register">Register</router-link></li>
-      <li id="cart">
+      <li v-if="!authStore.isAuthenticated"><router-link to="/register">Register</router-link></li>
+      <li class="relative border-2">
         <router-link to="/cart"
-          ><font-awesome-icon :icon="['fas', 'cart-shopping']" /><div id='counter-container'><span id="counter">{{
-            cartStore.totalItems
-          }}</span></div></router-link
+          ><font-awesome-icon :icon="['fas', 'cart-shopping']" />
+          <div class="absolute -top-4 -right-4 flex justify-center items-center border-2 bg-red-500 w-6 h-6 rounded-full">
+            <span class="">{{ cartStore.totalItems }}</span>
+          </div></router-link
         >
+      </li>
+      <li>
+        <button><font-awesome-icon :icon="['fas', 'fa-sun']" class="text-foreground-2" /></button>
+      </li>
+      <li>
+        <button><font-awesome-icon :icon="['fas', 'fa-moon']" class="text-foreground-2" /></button>
       </li>
     </ul>
   </nav>
 </template>
 
-
-
+<!-- 
 <style scoped>
 * {
   margin: 0;
@@ -51,17 +57,17 @@ function handleLogout() {
 }
 
 /* Stile principale della Navbar */
-.navbar {
+/* .navbar {
   width: 100vw;
   display: flex;
-  justify-content: space-between; /* Separa il logo dai link */
-  align-items: center; /* Allinea verticalmente al centro */
-  background-color: #1a1a1a; /* Colore di sfondo scuro */
+  justify-content: space-between; 
+  align-items: center; 
+  background-color: #1a1a1a; 
   padding: 15px 30px;
-  position: sticky; /* Mantiene la barra fissa in alto durante lo scroll */
+  position: sticky; 
   top: 0;
   z-index: 1000;
-}
+} */
 
 /* Stile del Logo */
 .navbar .logo {
@@ -130,4 +136,4 @@ function handleLogout() {
     padding: 5px 10px;
   }
 }
-</style>
+</style> -->

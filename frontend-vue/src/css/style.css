@@ -1,6 +1,39 @@
 @import "tailwindcss";
 
+/* 1. Define standart CSS variables*/
+:root {
+    --color-background: #fff;
+    --color-text: #1a202c;
+    --color-text-2: white;
+    --color-primary: #3490dc;
+}
 
-body {
+.dark {
+    --color-background: #1a202c;
+    --color-text: #fff;
+    --color-primary: #60a5fa;
+}
+
+/* body {
     background: linear-gradient(to right, #1b360eab, #dfbe89);
+} */
+
+/*2. Map them to Tailwind utilities */
+@theme inline {
+    --color-background: var(--color-background);
+    --color-foreground: var(--color-text);
+    --color-foreground-2: var(--color-text-2);
+    --color-primary: var(--color-primary);
+}
+
+/*3. Apply the styles */
+@layer base {
+    body {
+        background-color: var(--color-background);
+        color: var(--color-foreground)
+    }
+}
+
+label {
+    color: var(--color-text)
 }
