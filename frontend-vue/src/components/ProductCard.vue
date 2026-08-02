@@ -32,7 +32,9 @@ defineProps({
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 3px 3px 12px black;
-  background-color: oklch(96.2% 0.059 95.617);
+  color: var(--color-text);
+  background-color: var(--color-surface-2);
+  /* background-color: oklch(96.2% 0.059 95.617); */
   display: flex;
   flex-direction: column;
   max-width: 320px;
@@ -59,13 +61,13 @@ defineProps({
 .product-card__title {
   margin: 0 0 8px 0;
   font-size: 1.25rem;
-  color: #333;
+  color: var(--color-text-secondary);
 }
 
 .product-card__description {
   margin: 0;
   font-size: 0.9rem;
-  color: #666;
+  color: var(--color-text);
   line-height: 1.4;
 }
 
@@ -75,7 +77,7 @@ defineProps({
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: oklch(96.2% 0.059 95.617);
+  background-color: var(--color-surface-2);
 }
 
 .product-card__price {

@@ -39,7 +39,7 @@ onMounted(async () => {
 
   <div id="container" class="flex flex-col min-h-screen">
      
-  <h1 class="text-amber-100">Lista prodotti</h1>
+  <h1 class="text-center text-text text-5xl shadow-double">Lista prodotti</h1>
   <main class="grid">
     <div v-if="loading" class="fixed inset-0 w-screen h-screen flex justify-center items-center z-10 bg-black/30">
      <LoadingSpinner />
@@ -57,7 +57,7 @@ onMounted(async () => {
       <template #content>
         <router-link :to="`/detail/${product.id}`" id="r-link-content">
           <span class="category">{{ product.categoria }}</span>
-          <h3 class="custom-title">{{ product.nome }}</h3>
+          <h3 class="text-accent">{{ product.nome }}</h3>
           <p class="custom-desc">
             {{ product.descrizione }}
           </p>
@@ -67,7 +67,8 @@ onMounted(async () => {
       <template #footer>
         <div class="price-container">
           <span class="old-price">€ {{ product.prezzo }}</span>
-          <span class="new-price">€ {{ product.prezzo_scontato.toFixed(2) }}</span>
+          <!-- <span class="new-price">€ {{ product.prezzo_scontato.toFixed(2) }}</span> -->
+          <span class="text-accent text-2xl font-bold">€ {{ product.prezzo_scontato.toFixed(2) }}</span>
         </div>
         <button class="add-btn" @click="cartStore.addToCart(product)">Aggiungi</button>
       </template>
@@ -83,19 +84,15 @@ onMounted(async () => {
   left: 50%;
 } */
 
-h1 {
+/* h1 {
   text-align: center;
   font-size: 3.5rem;
-  /* color:#c9974d; */
-  /* color: white; */
-  /* text-shadow: 3px 3px 6px; */
-  text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3),
-    /* Deep shadow */ 0px 0px 20px #5c5038; /* Red glow on top */
-}
+  text-shadow: var(--shadow-double);
+} */
 
-h3 {
-  color: #292311;
-}
+/* h3 {
+  color: var(--color-text);
+} */
 
 .grid {
    position: relative;

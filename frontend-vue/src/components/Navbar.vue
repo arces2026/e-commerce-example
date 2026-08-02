@@ -2,10 +2,12 @@
 import { useAuthStore } from '@/stores/authStore'
 import { useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cartStore'
+import { useTheme } from '@/composable/useTheme'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const cartStore = useCartStore()
+const { isDark, toggleTheme } = useTheme()
 
 function handleLogout() {
   authStore.logout()
@@ -14,7 +16,7 @@ function handleLogout() {
 </script>
 
 <template>
-  <nav class="bg-primary flex justify-evenly text-foreground-2 p-6">
+  <nav class="sticky top-0 bg-primary border-border-light flex justify-evenly text-text p-6">
     <!-- Logo del sito -->
     <div class="w-full">BrandLogo</div>
     <!-- Link di navigazione -->
@@ -28,19 +30,22 @@ function handleLogout() {
       </li>
       <li v-else><router-link to="/login">Login</router-link></li>
       <li v-if="!authStore.isAuthenticated"><router-link to="/register">Register</router-link></li>
-      <li class="relative border-2">
+      <li class="relative">
         <router-link to="/cart"
           ><font-awesome-icon :icon="['fas', 'cart-shopping']" />
-          <div class="absolute -top-4 -right-4 flex justify-center items-center border-2 bg-red-500 w-6 h-6 rounded-full">
+          <div
+            class="absolute -top-4 -right-4 flex justify-center 
+            items-center bg-red-500 w-6 h-6 rounded-full"
+          >
             <span class="">{{ cartStore.totalItems }}</span>
           </div></router-link
         >
       </li>
       <li>
-        <button><font-awesome-icon :icon="['fas', 'fa-sun']" class="text-foreground-2" /></button>
-      </li>
-      <li>
-        <button><font-awesome-icon :icon="['fas', 'fa-moon']" class="text-foreground-2" /></button>
+        <button @click="toggleTheme"><font-awesome-icon :icon="['fas', 'fa-sun']" v-if="isDark" 
+          class="text-foreground" />
+        <font-awesome-icon :icon="['fas', 'fa-moon']" v-else class="text-foreground" />
+        </button>
       </li>
     </ul>
   </nav>

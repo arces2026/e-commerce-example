@@ -46,21 +46,21 @@ const handleLogin = async () => {
       <p class="text-2xl text-center text-green-400">{{ successMessage }}</p>
     </ModalVue>
     <form class="max-w-100  min-w-75  mt-10 m-auto flex flex-col">
-      <label for="username" class="text-2xl text-amber-100">Username</label>
+      <label for="username" class="text-2xl">Username</label>
       <input
         id="username"
         type="text"
         placeholder="Username"
         v-model="username"
-        class="p-2 rounded-lg mb-5 bg-amber-100"
+        class="p-2 rounded-lg mb-5"
       />
-      <label for="password" class="text-2xl text-amber-100">Password</label>
+      <label for="password" class="text-2xl">Password</label>
       <input
         id="password"
         type="password"
         placeholder="Password"
         v-model="password"
-        class="p-2 rounded-lg mb-5 bg-amber-100"
+        class="p-2 rounded-lg mb-5"
       />
       <Button  type="submit" @click.prevent="handleLogin"><span>Login</span></Button>
       <p v-if="error" class="text-2xl my-5 mx-auto text-red-600">{{ error }}</p>

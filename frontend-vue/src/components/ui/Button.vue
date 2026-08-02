@@ -7,19 +7,19 @@
 <style>
     .fancy{
         padding: 10px;
-        background-color: bisque;
-        color: rgb(172, 103, 34);
+        background-color: var(--color-primary);
+        color: var(--color-foreground);
         cursor: pointer;
         width: 200px;
         margin: 40px auto;
         border-radius: 10px;
         font-size: 1.5rem;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
     }
 
     .fancy:hover {
         scale: 1.05;
-        background-color: rgb(196, 143, 80);
+        background-color: var(--color-primary-hover);
         color: rgb(240, 225, 211);
     }
 
